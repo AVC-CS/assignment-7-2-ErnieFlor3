@@ -6,36 +6,81 @@
 TEST_CASE("Ex1 makearray()", "[example]")
 {
 	const int SIZE = 100;
-	int numbers[SIZE];
+	int numbers[SIZE], org[SIZE];
 	int cnt, result;
 	result = 1;
 	cnt = makearray(numbers);
 	printout(numbers, cnt);
-	result = (cnt > 0) ? 1 : 0;
-	if ((cnt > 0))
+	for (int i = 0; i < cnt; i++)
+		org[i] = numbers[i];
+	swapfold(numbers, cnt);
+	printout(numbers, cnt);
+	for (int i = 0; i < ceil(cnt / 2); i++)
 	{
-		for (int i = 0; i < cnt; i++)
-			if ((numbers[i] <= 0) && (numbers[i] >= 100))
-				result = 0;
+		if (org[i] != numbers[cnt - i - 1])
+		{
+			result = 0;
+			break;
+		}
 	}
-	INFO("The number of elements or array values are not valid\n");
+	INFO("swapfold() function does not have the reverse order of the original array \n");
 	REQUIRE(result == 1);
+	cout << "****************************************\n";
 }
 // tests for exercise 2
-TEST_CASE("Ex2 bubble() check", "[example]")
+
+TEST_CASE("Ex2 sumfold()", "[example]")
 {
 	const int SIZE = 100;
-	int numbers[SIZE];
-	int cnt, max, result;
+	int numbers[SIZE], org[SIZE];
+	int cnt, result;
 	result = 1;
 	cnt = makearray(numbers);
 	printout(numbers, cnt);
 	for (int i = 0; i < cnt; i++)
-		if ((i == 0) || (max < numbers[i]))
-			max = numbers[i];
-	bubble(numbers, cnt);
-	printout(numbers, cnt);
+		org[i] = numbers[i];
+	sumfold(numbers, cnt);
+	printout(numbers, ceil(cnt / 2));
+	for (int i = 0; i < ceil(cnt / 2); i++)
+	{
+		int tmp = org[i] + org[cnt - i - 1];
+		if (tmp != numbers[i])
+		{
+			result = 0;
+			break;
+		}
+	}
+	INFO("sumfold() function does not have the reverse order of the original array \n");
+	REQUIRE(result == 1);
+	cout << "****************************************\n";
+}
 
-	INFO("The last element is not a greatest value after calling bubble() \n");
-	REQUIRE(numbers[cnt - 1] == max);
+TEST_CASE("Ex3 equalfold()", "[example]")
+{
+	const int SIZE = 100;
+	int numbers[SIZE], org[SIZE], equal[SIZE];
+	int cnt, result;
+	result = 1;
+	cnt = makearray(numbers);
+	printout(numbers, cnt);
+	for (int i = 0; i < cnt; i++)
+		org[i] = numbers[i];
+	equalfold(numbers, equal, cnt);
+	printout(equal, ceil(cnt / 2));
+	for (int i = 0; i < cnt / 2; i++)
+	{
+		if (equal[i] == 1)
+		{
+			if (numbers[i] != numbers[cnt - i - 1])
+				result = 0;
+		}
+		else
+		{
+			if (numbers[i] == numbers[cnt - i - 1])
+				result = 0;
+		}
+	}
+	INFO("equalfold() function generates the wrong comparisons\n");
+	REQUIRE(result == 1);
+	cout << "****************************************\n";
 }
