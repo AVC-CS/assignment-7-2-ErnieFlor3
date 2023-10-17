@@ -23,6 +23,9 @@ void equalfold(int number[], int equal[], int last)
 {
 }
 
+/***************************************************
+ * Do not edit the following functions
+ ***************************************************/
 int makearray(int number[])
 {
 	int last;
