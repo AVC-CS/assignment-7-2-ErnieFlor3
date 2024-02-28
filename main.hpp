@@ -15,12 +15,23 @@ const int SIZE = 100;
 
 void swapfold(int number[], int last)
 {
+	for(int i=0; i<last/2; i++)
+		swap(number[i], number[last-i-1]);
 }
+
 void sumfold(int number[], int last)
 {
+	for(int i=0; i<last/2; i++)
+		number[i] += number[last-i-1];
 }
 void equalfold(int number[], int equal[], int last)
 {
+	for(int i=0; i<last/2; i++)
+		if(number[i] == number[last-i-1])
+			equal [i] = 1;
+		else 
+			equal[i] = 0;
+
 }
 
 /***************************************************
